@@ -1,0 +1,6 @@
+discord
+natsort
+mojang
+requests
+Flask
+gspread
