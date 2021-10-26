@@ -1,20 +1,10 @@
-import discord
-import asyncio
 import sys
-import json
-import random
-import os
-import keep_alive
 import requests
-from discord.ext.commands import cooldown, BucketType
 from mojang import MojangAPI
 from discord.ext import commands
 from datetime import datetime
-from datetime import date
 from datetime import timedelta
-import time
 import sqlite3
-from threading import Thread
 
 async def player_is_in_guild(guild: dict, uuid: str) -> bool:
     for member in guild["guild"]["members"]:
@@ -29,19 +19,19 @@ class StaffInactive(commands.Cog):
     @commands.command()
     @commands.has_role('♔ | Staff')
     async def staffinactive(self, ctx, user, day, discord):
-        # check kung valid yung date
+        # check if date is valid
         msg = await ctx.send('Processing... (1/5)')
         try:
             night = datetime.strptime(day, "%Y-%m-%d").date()
-            # check for the date if its in the past or 1y in the future or same day
+            # check for the date if its in the past or 1year in the future or same day
             time_now = datetime.now()
             time_365 = time_now + timedelta(days = 365)
             time_1 = time_now - timedelta(days = 1)
-            # para magkaparehas ung values ng night at timebefore
+            # so that the format of 'night' and 'timebefore' is same
             timenow = time_now.strftime("%Y-%m-%d")
             timebefore = time_1.strftime("%Y-%m-%d")
             timein365d = time_365.strftime("%Y-%m-%d")
-            # check na
+            # check
             if timein365d < str(night):
                 await msg.edit(content = 'You cannot register an inactivity date longer than a year!')
                 sys.exit()
@@ -56,7 +46,7 @@ class StaffInactive(commands.Cog):
         except ValueError:
             await msg.edit(content = f'{ctx.author.mention}, please use the correct format! {format}')
             sys.exit()
-    # check kung ung sinend na IGN ay tama
+    # check IGN is correct
 
         await msg.edit(content = f'Checking if the account exists... (2/5)')
         uuid = MojangAPI.get_uuid(user)
@@ -66,7 +56,7 @@ class StaffInactive(commands.Cog):
             await msg.edit(content = f'You either sent the wrong username or made a typo because that username does not exist!')
         else:
 
-    # check kung nasa StormFall ba o hindi
+    # check if in StormFall or no
 
             await msg.edit(content=f'Checking if the account is in the guild... (3/5)')
             guild = requests.get('https://api.hypixel.net/guild?key=eba433ff-c57e-48ce-ade9-242242be49f9&name=stormfall').json()
@@ -90,7 +80,7 @@ class StaffInactive(commands.Cog):
                     sys.exit()
                 inac.close()
 
-                # msg na issend dun sa #inactive channel
+                # msg that will get sent to #inactive channel
 
                 startdate = time_now.strftime("%B %d, %Y")
                 enddate = night.strftime("%B %d, %Y")
@@ -112,7 +102,7 @@ class StaffInactive(commands.Cog):
             send += f'Format: IGN | End Date | Discord ID |\n'
             for row in fetch:
                 send += (f'`sf!staffinactive {row[1]} {row[2]} {row[0]}`\n')
-        await msg.edit(content = send)
+            await msg.edit(content = send)
         inac.close()
         cursor.close()
 
