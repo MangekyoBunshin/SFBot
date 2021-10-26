@@ -1,20 +1,10 @@
 import discord
-import asyncio
-import sys
-import json
-import random
-import os
-import keep_alive
 import requests
-from discord.ext.commands import cooldown, BucketType
 from mojang import MojangAPI
 from discord.ext import commands
 from datetime import datetime
-from datetime import date
 from datetime import timedelta
-import time
 import sqlite3
-from threading import Thread
 from natsort import natsorted
 
 class Week(commands.Cog):
@@ -36,14 +26,12 @@ class Week(commands.Cog):
             uuid = member["uuid"]
             username = MojangAPI.get_username(uuid)
             if sum(member["expHistory"].values()) < 5000:
-                print("7")
                 c.execute("SELECT ign FROM inactive WHERE ign = ?", (username,))
-                print("8")
-                # merong inactive
+                # has inactive
                 if c.fetchone():
                     print(f'{username} - Has Inactive Notice')
                     continue
-                else: # walang inactive
+                else: # no inactive
                     now = datetime.now()
                     ts = datetime.timestamp(now)
                     date_7_days_ago = now - timedelta(days=7) 
