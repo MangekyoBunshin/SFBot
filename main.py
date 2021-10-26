@@ -1,14 +1,10 @@
 import discord
 import math
 import asyncio
-import sys
-import random
 import os
 import gspread
 import sqlite3
-import time
 from discord import Embed
-from discord import Colour
 import keep_alive
 from discord.ext import commands
 from discord.ext import tasks
@@ -115,8 +111,7 @@ async def responses():
                 print("Already has a response.")
         if user is None:
             user = f"{disc} does not exist / is not in the Discord"
-            
-        
+
         # delete the extra characters in GAMEMODE if they chose Skyblock
 
         if gamemode == "Skyblock (Remember to turn on your Skyblock API! To enable it, go to Skyblock Menu -> Settings -> API access and enable everything!)":
@@ -305,8 +300,6 @@ async def start(ctx):
 @client.command()
 async def ping(ctx):
      await ctx.send(f'Pong! In {round(client.latency * 1000)}ms')
-
-
 
 # Downvote or Upvote
 

@@ -1,9 +1,6 @@
 import discord
 from discord.ext import commands
-
 from datetime import datetime
-from datetime import date
-from datetime import timedelta
 # Rain
 
 class Rain(commands.Cog):
@@ -31,16 +28,11 @@ class Rain(commands.Cog):
         aaa = await ctx.send(content=f'{author}', embed=embed)
 
         # use log
-        print("Test 1 Passed")
         url = aaa.jump_url
-        print("Test 2 Passed")
         logchannel = ctx.guild.get_channel(787986229122564126)
         embed = discord.Embed(title="Rain Log", description=f"[Jump to Message]({url})", color=discord.Color.dark_gold())
-        print("Test 3 Passed")
         embed.set_footer(icon_url=ctx.author.avatar_url, text=f'Command ran by {ctx.author.name}')
-        print("Test 4 Passed")
         embed.timestamp = datetime.utcnow()
-        print("Test 5 Passed")
         await logchannel.send(embed=embed)
 
         # add reaction to delete message

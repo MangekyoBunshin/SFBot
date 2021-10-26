@@ -1,19 +1,6 @@
 import discord
-from discord import Embed
-from discord.ext import tasks
 from discord.ext import commands
-from mojang import MojangAPI
-import asyncio
-import time
-import requests
 import sqlite3
-import math
-import gspread
-import sys
-
-key = 'eba433ff-c57e-48ce-ade9-242242be49f9'
-
-
 database = sqlite3.connect('applicants.db')
 cursor = database.cursor()
 # table

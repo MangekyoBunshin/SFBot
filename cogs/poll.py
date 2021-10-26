@@ -1,14 +1,4 @@
-import discord
-import asyncio
-import sys
-import random
-import os
-import time
-from discord import Embed
-from discord import Colour
 from discord.ext import commands
-from discord.ext import tasks
-from datetime import datetime
 
 
 

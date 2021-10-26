@@ -1,21 +1,14 @@
 import discord
-import asyncio
 import sys
 import json
-import random
-import os
-import keep_alive
 import requests
 from discord.ext.commands import cooldown, BucketType
 from mojang import MojangAPI
 from discord.ext import commands
 from datetime import datetime
-from datetime import date
 from datetime import timedelta
 import datetime 
-import time
 import sqlite3
-from threading import Thread
 
 # sqlite3
 inac = sqlite3.connect('inactives.db')
@@ -45,7 +38,7 @@ class Inactive(commands.Cog):
     @commands.has_role('☁️ | Cloud')
     @cooldown(1, 5, BucketType.user)
     async def inactive(self, ctx, user, day):
-    # check kung valid yung date
+    # check if date is valid
         msg = await ctx.reply('Processing... (1/5)')
         try:
             print("Test 1")
@@ -56,12 +49,12 @@ class Inactive(commands.Cog):
             time_365 = time_now + timedelta(days = 365)
             time_1 = time_now - timedelta(days = 1)
             print("Test 3")
-            # para magkaparehas ung values ng night at timebefore
+            # so that the format of 'night' and 'timebefore' is sam
             timenow = time_now.strftime("%Y-%m-%d")
             timebefore = time_1.strftime("%Y-%m-%d")
             timein365d = time_365.strftime("%Y-%m-%d")
             print("Test 4")
-            # check na
+            # check
             if timein365d < str(night):
                 await msg.edit(content = 'You cannot register an inactivity date longer than a year!')
                 sys.exit()
