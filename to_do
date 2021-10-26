@@ -1,0 +1,4 @@
+To Do:
+
+[1] @tasks.loop that will check everyone in the discord and run them through hypixel api to see if they're in the guild or not
+[2] Limit sf!inactive to 1 month inactives only
